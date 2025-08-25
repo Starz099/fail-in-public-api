@@ -8,7 +8,7 @@ if (!token) {
   throw new Error("GITHUB_TOKEN is not set in environment variables");
 }
 const endpoint = "https://models.github.ai/inference";
-const model = "xai/grok-3";
+const model = "mistral-ai/mistral-medium-2505";
 
 export async function main(e: string): Promise<string> {
   const client = ModelClient(endpoint, new AzureKeyCredential(token as string));
@@ -19,8 +19,9 @@ export async function main(e: string): Promise<string> {
         { role: "system", content: "" },
         { role: "user", content: prompt },
       ],
-      temperature: 1,
-      top_p: 1,
+      temperature: 0.8,
+      top_p: 0.1,
+      max_tokens: 2048,
       model: model,
     },
   });
